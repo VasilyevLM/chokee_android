@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Chokee</string>
+    <string name="loginBtn">Вход</string>
+    <string name="phoneCode">+7</string>
+    <string name="logo">Logo</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+</resources>
