@@ -1,7 +1,5 @@
 package com.konterraweb.chokee
 
-import android.app.ActivityOptions
-import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
