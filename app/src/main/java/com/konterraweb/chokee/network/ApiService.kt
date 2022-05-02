@@ -4,14 +4,15 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 
 interface ApiService {
     @POST("login")
-    fun login(@Body data: HashMap<String, String>): Call<ResponseBody>
+    fun login(@Body data: HashMap<String, String>): Call<User>
 
     @POST("logout")
-    fun logout(): Call<ResponseBody>
+    fun logout(@Query("token") token: String): Call<ResponseBody>
 
     @POST("sms_request")
     fun smsRequest(@Body data: HashMap<String, String>): Call<ResponseBody>

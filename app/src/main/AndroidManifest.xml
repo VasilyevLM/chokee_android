@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.konterraweb.chokee">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -11,18 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Chokee.NoActionBar">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.Chokee.NoActionBar" />
-        <activity android:name=".SmsCodeActivity" />
-        <activity android:name=".LoginActivity"
+            android:name=".StartActivity"
+            android:theme="@style/NoUiAppTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Chokee.NoActionBar" />
+        <activity android:name=".SmsCodeActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
