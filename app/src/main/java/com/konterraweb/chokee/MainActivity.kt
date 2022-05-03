@@ -41,8 +41,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-
-        Toast.makeText(this.applicationContext, "Disabled Back Press", Toast.LENGTH_SHORT).show();
-    }
+    override fun onBackPressed() {}
 }

@@ -49,18 +49,21 @@ class LoginActivity : AppCompatActivity() {
                     response: Response<ResponseBody>
                 ) {
                     val json: JSONObject? = response.body()?.string()?.let { it1 -> JSONObject(it1) }
-                    if(response.isSuccessful && json != null) {
+                    if(response.isSuccessful && json?.get("status") == "success") {
+                        smsCodeIntent.putExtra("phone", phone)
                         startActivity(smsCodeIntent)
-                        smsCodeIntent.putExtra("phone", phone.toString())
                     } else {
                         Toast.makeText(applicationContext, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    println(t)
                     Toast.makeText(applicationContext, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
                 }
             })
         }
     }
+
+    override fun onBackPressed() {}
 }

@@ -1,6 +1,8 @@
 package com.konterraweb.chokee
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,6 +53,11 @@ class AboutFragment : Fragment() {
                 ) {}
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}
             })
+            val pref: SharedPreferences.Editor = requireActivity()
+                .getSharedPreferences("User", Context.MODE_PRIVATE)
+                .edit()
+            pref.clear()
+            pref.commit()
         }
         val intent = Intent(requireActivity().applicationContext, LoginActivity::class.java)
         startActivity(intent)

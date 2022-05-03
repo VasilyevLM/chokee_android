@@ -1,14 +1,18 @@
 package com.konterraweb.chokee.ui.main
 
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.konterraweb.chokee.MyApp
 import com.konterraweb.chokee.R
+import com.konterraweb.chokee.Statuses
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,10 +33,20 @@ class PlaceholderFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
-//        val textView: TextView = root.findViewById(R.id.section_label)
-//        pageViewModel.text.observe(this, Observer<String> {
-//            textView.text = it
-//        })
+        (requireActivity().application as MyApp).user?.let {
+            val statusText = root.findViewById<TextView>(R.id.statusText)
+            val myImageStatus = root.findViewById<ImageView>(R.id.myImageStatus)
+            if(Statuses.image.containsKey(it.status)) {
+                statusText.text = it.status
+                val imageName = Statuses.image[it.status]
+                val imageRes = resources.getIdentifier(
+                        "@drawable/$imageName",
+                        null,
+                        requireActivity().packageName
+                    )
+                myImageStatus.setImageResource(imageRes)
+            }
+        }
         return root
     }
 
