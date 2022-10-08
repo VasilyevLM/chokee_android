@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.konterraweb.chokee">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".MyApp"
@@ -15,7 +15,7 @@
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".StartActivity"
-            android:theme="@style/NoUiAppTheme"
+            android:theme="@android:style/Theme.NoDisplay"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

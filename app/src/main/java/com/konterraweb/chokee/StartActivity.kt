@@ -1,15 +1,15 @@
 package com.konterraweb.chokee
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.gson.Gson
 import com.konterraweb.chokee.network.User
 import java.lang.Exception
 
-class StartActivity : AppCompatActivity() {
+class StartActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val pref: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -32,10 +32,6 @@ class StartActivity : AppCompatActivity() {
         }
 
         startActivity(newIntent)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setVisible(true)
+        finish()
     }
 }

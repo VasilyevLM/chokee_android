@@ -1,6 +1,7 @@
 package com.konterraweb.chokee
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -21,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SmsCodeActivity : AppCompatActivity() {
+class SmsCodeActivity : Activity() {
     lateinit var smsField: SmsConfirmationView
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +55,7 @@ class SmsCodeActivity : AppCompatActivity() {
                                 prefs.putString("instance", json)
                                 prefs.commit()
                                 (application as MyApp).user = user
-                                val mainIntent =
-                                    Intent(applicationContext, MainActivity::class.java)
+                                val mainIntent = Intent(applicationContext, MainActivity::class.java)
                                 startActivity(mainIntent)
                             }
                         }

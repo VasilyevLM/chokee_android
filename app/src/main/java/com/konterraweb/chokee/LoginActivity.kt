@@ -1,5 +1,6 @@
 package com.konterraweb.chokee
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -21,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : Activity() {
     lateinit var phoneField: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {

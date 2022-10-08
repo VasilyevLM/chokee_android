@@ -1,32 +1,42 @@
 package com.konterraweb.chokee
 
-import android.content.Context
+import Contact
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import android.widget.Toast
+import android.util.Log
+import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.konterraweb.chokee.network.ApiServer
+import com.konterraweb.chokee.models.ContactsViewModel
 import com.konterraweb.chokee.ui.main.SectionsPagerAdapter
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var viewPager: ViewPager2
+class MainActivity : FragmentActivity() {
+    private val viewModel by viewModels<ContactsViewModel>()
+    private var contacts = ArrayList<Contact>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
-        viewPager = findViewById(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, Array(1){Manifest.permission.READ_CONTACTS}, 100)
+        } else {
+            viewModel.readContacts()
+        }
+
         val fab: FloatingActionButton = findViewById(R.id.fab)
+        val viewPager = findViewById<ViewPager2>(R.id.view_pager)
         val tabs: TabLayout = findViewById(R.id.tabs)
-        TabLayoutMediator(tabs, this.viewPager) { tab, position ->
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        viewPager.adapter = sectionsPagerAdapter
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = when(position) {
                 0 -> "Мой статус"
                 1 -> "Мои друзья"
@@ -34,11 +44,24 @@ class MainActivity : AppCompatActivity() {
                 else -> "Мой статус"
             }
         }.attach()
+        viewModel.getContacts().observe(this) { items ->
+            sectionsPagerAdapter.contacts = items
+            sectionsPagerAdapter.updateContacts()
+        }
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            sectionsPagerAdapter.contacts = arrayListOf(Contact("one", "two", "tree"))
+            sectionsPagerAdapter.updateContacts()
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        viewModel.readContacts()
     }
 
     override fun onBackPressed() {}
